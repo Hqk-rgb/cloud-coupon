@@ -34,7 +34,7 @@ spring:
         # 心跳超时时间 单位是毫秒,必须大于心跳间隔
         heart-beat-timeout: 15000
         metadata:
-          myData: tem
+          myData: custom
           # 命名空间 ID ，进行数据隔离
         namespace: dev
         # 两个服务要相互调用必须在同一个group

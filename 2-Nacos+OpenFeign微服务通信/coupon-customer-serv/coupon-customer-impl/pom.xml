@@ -18,6 +18,15 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- Nacos服务发现组件 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>coupon-customer-dao</artifactId>
             <version>${project.version}</version>
@@ -25,49 +34,24 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>coupon-calculation-api</artifactId>
+            <artifactId>coupon-calculation-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>coupon-template-api</artifactId>
+            <artifactId>coupon-template-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>${project.groupId}</groupId>-->
-<!--            <artifactId>coupon-calculation-impl</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>${project.groupId}</groupId>-->
-<!--            <artifactId>coupon-template-impl</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <!-- Nacos服务发现组件 -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
-
-<!--        &lt;!&ndash; 负载均衡组件 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-loadbalancer</artifactId>-->
-<!--        </dependency>-->
-
-<!--        &lt;!&ndash; webflux服务调用 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-webflux</artifactId>-->
-<!--        </dependency>-->
 
     </dependencies>
 

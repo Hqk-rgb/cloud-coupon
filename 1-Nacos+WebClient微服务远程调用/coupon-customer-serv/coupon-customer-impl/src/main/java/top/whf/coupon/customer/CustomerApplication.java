@@ -22,10 +22,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = {"top.whf"})
 //用于扫描 JPA实体类 @Entity，默认扫本包当下路径
 @EntityScan(basePackages = {"top.whf"})
-public class CustomApplication {
+public class CustomerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CustomApplication.class, args);
+        SpringApplication.run(CustomerApplication.class, args);
     }
 
 }

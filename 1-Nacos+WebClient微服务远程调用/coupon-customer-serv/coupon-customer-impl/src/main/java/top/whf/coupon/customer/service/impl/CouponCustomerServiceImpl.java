@@ -78,7 +78,7 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
 
         // 调用接口试算服务
         return webClientBuilder.build().post()
-                .uri("http://coupon-calculation-serv/calculator/simulate?id=")
+                .uri("http://coupon-calculation-serv/calculator/simulate")
                 .bodyValue(order)
                 .retrieve()
                 .bodyToMono(SimulationResponse.class)
@@ -109,15 +109,13 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
                 .collect(Collectors.toList());
         //Map<Long, CouponTemplateInfo> templateMap = templateService.getTemplateInfoMap(templateIds);
         // 通过webClient 调用远程服务
-        Map<Long, CouponTemplateInfo> map = webClientBuilder.build().get()
-                .uri("http://coupon-template-serv/template/getBatch?ids=" + templateIds)
+        Map<Long, CouponTemplateInfo> map=webClientBuilder.build().get()
+                .uri("http://coupon-template-serv/template/getBatch?ids=",templateIds)
                 .retrieve()
-                //设置返回值类型
-                .bodyToMono(new ParameterizedTypeReference<Map<Long, CouponTemplateInfo>>() {
-                })
+                .bodyToMono(new ParameterizedTypeReference<Map<Long,CouponTemplateInfo>>(){})
                 .block();
 
-        coupons.forEach(e -> e.setTemplateInfo(Objects.requireNonNull(map).get(e.getTemplateId())));
+        coupons.forEach(e -> e.setTemplateInfo(map.get(e.getTemplateId())));
 
         return coupons.stream()
                 .map(CouponConverter::convertToCoupon)

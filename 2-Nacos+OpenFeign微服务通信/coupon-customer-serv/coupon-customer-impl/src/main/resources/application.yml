@@ -25,6 +25,27 @@ spring:
       minimum-idle: 5
       max-lifetime: 60000
       auto-commit: true
+  jpa:
+    show-sql: true
+    hibernate:
+      # 在生产环境全部为none，防止ddl结构被自动执行
+      ddl-auto: none
+    properties:
+      hibernate.show_sql: true
+      hibernate.format_sql: true
+    open-in-view: false
+  openfeign:
+    client:
+      default-config:
+      config:
+        coupon-template-feign-client:
+          connectedTimeout: 2000
+          readTimeout: 3000
+          loggerLevel: full
+        coupon-calculation-feign-client:
+          connectTimeout: 2000
+          readTimeout: 3000
+          loggerLevel: full
   cloud:
     nacos:
       discovery:
@@ -46,25 +67,8 @@ spring:
         register-enabled: true
         # 宕机后重启优先读取本地配置文件
         naming-load-cache-at-start: true
-  jpa:
-    show-sql: true
-    hibernate:
-      # 在生产环境全部为none，防止ddl结构被自动执行
-      ddl-auto: none
-    properties:
-      hibernate.show_sql: true
-      hibernate.format_sql: true
-    open-in-view: false
-
 logging:
   level:
     top.whf.coupon: debug
-feign:
-  client:
-    config:
-      default:
-        connectedTimeout: 1000
-        readTimeout: 2000
-      coupon-template-serv:
-        connectTimeout: 1000
-        readTimeout: 1500
+    top.whf.coupon.customer.feign.TemplateService: debug
+    top.whf.coupon.customer.feign.CalculationService: debug
