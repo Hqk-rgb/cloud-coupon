@@ -1,0 +1,61 @@
+server:
+  port: 20001
+  # 在返回给页面的结果里，把错误信息添加到message里
+  error:
+    include-message: always
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: coupon-customer-serv
+  datasource:
+    # mysql数据源
+    url: jdbc:mysql://127.0.0.1:3306/coupon_db?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 连接池
+    hikari:
+      pool-name: CloudCouponHikari
+      connection-timeout: 5000
+      idle-timeout: 30000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      max-lifetime: 60000
+      auto-commit: true
+  cloud:
+    nacos:
+      discovery:
+        # 注册中心地址 nacos服务器地址
+        server-addr: localhost:8848
+        # 注册到 nacos的服务名
+        service: coupon-customer-serv
+        # 心跳间隔 单位是毫秒
+        heart-beat-interval: 5000
+        # 心跳超时时间 单位是毫秒,必须大于心跳间隔
+        heart-beat-timeout: 15000
+        metadata:
+          myData: custom
+          # 命名空间 ID ，进行数据隔离
+        namespace: dev
+        # 两个服务要相互调用必须在同一个group
+        group: myGroup
+        # 非必须配置
+        register-enabled: true
+        # 宕机后重启优先读取本地配置文件
+        naming-load-cache-at-start: true
+  jpa:
+    show-sql: true
+    hibernate:
+      # 在生产环境全部为none，防止ddl结构被自动执行
+      ddl-auto: none
+    properties:
+      hibernate.show_sql: true
+      hibernate.format_sql: true
+    open-in-view: false
+
+logging:
+  level:
+    top.whf.coupon: debug

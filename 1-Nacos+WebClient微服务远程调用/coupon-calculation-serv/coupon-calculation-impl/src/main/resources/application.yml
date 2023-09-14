@@ -1,0 +1,42 @@
+server:
+  port: 20002
+  # 在返回给页面的结果里，把错误信息添加到message里
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: coupon-calculation-serv
+  cloud:
+    nacos:
+      discovery:
+        # 注册中心地址 nacos服务器地址
+        server-addr: localhost:8848
+        # 注册到 nacos的服务名
+        service: coupon-calculation-serv
+        # 心跳间隔 单位是毫秒
+        heart-beat-interval: 5000
+        # 心跳超时时间 单位是毫秒,必须大于心跳间隔
+        heart-beat-timeout: 15000
+        metadata:
+          myData: cal
+          # 命名空间 ID ，进行数据隔离
+        namespace: dev
+        # 两个服务要相互调用必须在同一个group
+        group: myGroup
+        # 非必须配置
+        register-enabled: true
+        # 宕机后重启优先读取本地配置文件
+        naming-load-cache-at-start: true
+
+logging:
+  level:
+    top.whf.coupon: debug
+
+# 开启所有management端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
