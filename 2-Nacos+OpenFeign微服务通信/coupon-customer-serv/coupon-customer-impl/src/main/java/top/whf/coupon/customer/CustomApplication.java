@@ -3,7 +3,7 @@ package top.whf.coupon.customer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -18,18 +18,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication
 @EnableJpaAuditing
-@ComponentScan(basePackages = "top.whf")
+//@ComponentScan(basePackages = "top.whf")
 @EnableTransactionManagement
 //用于扫描 Dao @Repository 注解
 @EnableJpaRepositories(basePackages = {"top.whf"})
 //用于扫描 JPA实体类 @Entity，默认扫本包当下路径
 @EntityScan(basePackages = {"top.whf"})
-@EnableDiscoveryClient
 @EnableFeignClients(basePackages = {"top.whf"})
-public class CustomerApplication {
+//@EnableHystrix
+public class CustomApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CustomerApplication.class, args);
+        SpringApplication.run(CustomApplication.class, args);
     }
 
 }

@@ -1,7 +1,6 @@
 package top.whf.coupon.customer.service.impl;
 
 import com.google.common.collect.Lists;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
@@ -11,20 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 import top.whf.coupon.calculation.api.beans.ShoppingCart;
 import top.whf.coupon.calculation.api.beans.SimulationOrder;
 import top.whf.coupon.calculation.api.beans.SimulationResponse;
-import top.whf.coupon.calculation.service.CouponCalculationService;
 import top.whf.coupon.customer.converter.CouponConverter;
 import top.whf.coupon.customer.dao.CouponDao;
+import top.whf.coupon.customer.dao.entity.Coupon;
 import top.whf.coupon.customer.dao.beans.RequestCoupon;
 import top.whf.coupon.customer.dao.beans.SearchCoupon;
-import top.whf.coupon.customer.dao.entity.Coupon;
 import top.whf.coupon.customer.dao.enums.CouponStatus;
 import top.whf.coupon.customer.feign.CalculationService;
 import top.whf.coupon.customer.feign.TemplateService;
 import top.whf.coupon.customer.service.CouponCustomerService;
 import top.whf.coupon.template.api.beans.CouponInfo;
 import top.whf.coupon.template.api.beans.CouponTemplateInfo;
-import top.whf.coupon.template.service.CouponTemplateService;
 
+import javax.annotation.Resource;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +46,7 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
 
     @Resource
     private TemplateService templateService;
+
 
 
     @Override
@@ -77,6 +76,13 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
 
         // 调用接口试算服务
         return calculationService.simulate(order);
+//        return webClientBuilder.build().post()
+//                .uri("http://coupon-calculation-serv/calculator/simulate")
+//                .bodyValue(order)
+//                .retrieve()
+//                .bodyToMono(SimulationResponse.class)
+//                .block();
+
     }
 
     /**
@@ -100,7 +106,16 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
         List<Long> templateIds = coupons.stream()
                 .map(Coupon::getTemplateId)
                 .collect(Collectors.toList());
-        Map<Long, CouponTemplateInfo> templateMap = templateService.getTemplateBatch(templateIds);
+
+        Map<Long, CouponTemplateInfo> templateMap = templateService.getTemplateInBatch(templateIds);
+
+        //通过webClient嗲用远程服务
+//        Map<Long, CouponTemplateInfo> templateMap=webClientBuilder.build().get()
+//                        .uri("http://coupon-template-serv/template/getBatch?ids=",templateIds)
+//                        .retrieve()
+//                        .bodyToMono(new ParameterizedTypeReference<Map<Long,CouponTemplateInfo>>(){})
+//                        .block();
+
         coupons.forEach(e -> e.setTemplateInfo(templateMap.get(e.getTemplateId())));
 
         return coupons.stream()
@@ -113,11 +128,11 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
      */
     @Override
     public Coupon requestCoupon(RequestCoupon request) {
-        CouponTemplateInfo templateInfo = templateService.getTemplate(request.getCouponTemplateId());
+        CouponTemplateInfo templateInfo = templateService.getTemplate(request.getCouponTemplatedId());
 
         // 模板不存在则报错
         if (templateInfo == null) {
-            log.error("invalid template id={}", request.getCouponTemplateId());
+            log.error("invalid template id={}", request.getCouponTemplatedId());
             throw new IllegalArgumentException("Invalid template id");
         }
 
@@ -125,19 +140,19 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
         long now = Calendar.getInstance().getTimeInMillis();
         Long expTime = templateInfo.getRule().getDeadline();
         if (expTime != null && now >= expTime || BooleanUtils.isFalse(templateInfo.getAvailable())) {
-            log.error("template is not available id={}", request.getCouponTemplateId());
+            log.error("template is not available id={}", request.getCouponTemplatedId());
             throw new IllegalArgumentException("template is unavailable");
         }
 
         // 用户领券数量超过上限
-        long count = couponDao.countByUserIdAndTemplateId(request.getUserId(), request.getCouponTemplateId());
+        long count = couponDao.countByUserIdAndTemplateId(request.getUserId(), request.getCouponTemplatedId());
         if (count >= templateInfo.getRule().getLimitation()) {
             log.error("exceeds maximum number");
             throw new IllegalArgumentException("exceeds maximum number");
         }
 
         Coupon coupon = Coupon.builder()
-                .templateId(request.getCouponTemplateId())
+                .templateId(request.getCouponTemplatedId())
                 .userId(request.getUserId())
                 .shopId(templateInfo.getShopId())
                 .status(CouponStatus.AVAILABLE)
@@ -175,7 +190,12 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
 
         // order清算
         ShoppingCart checkoutInfo = calculationService.checkout(order);
-
+//        ShoppingCart checkoutInfo=webClientBuilder.build().post()
+//                                                    .uri("http://coupon-calculation-serv/calculator/checkout")
+//                                                    .bodyValue(order)
+//                                                    .retrieve()
+//                                                    .bodyToMono(ShoppingCart.class)
+//                                                    .block();
         if (coupon != null) {
             // 如果优惠券没有被结算掉，而用户传递了优惠券，报错提示该订单满足不了优惠条件
             if (CollectionUtils.isEmpty(checkoutInfo.getCouponInfos())) {

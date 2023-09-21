@@ -2,7 +2,6 @@ package top.whf.coupon.template.service.impl;
 
 
 
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
@@ -19,6 +18,7 @@ import top.whf.coupon.template.dao.CouponTemplateDao;
 import top.whf.coupon.template.dao.entity.CouponTemplate;
 import top.whf.coupon.template.service.CouponTemplateService;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;

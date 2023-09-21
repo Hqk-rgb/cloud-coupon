@@ -1,11 +1,12 @@
 package top.whf.coupon.template.api.beans;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.whf.coupon.template.api.beans.rules.TemplateRule;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @ClassName CouponTemplateInfo

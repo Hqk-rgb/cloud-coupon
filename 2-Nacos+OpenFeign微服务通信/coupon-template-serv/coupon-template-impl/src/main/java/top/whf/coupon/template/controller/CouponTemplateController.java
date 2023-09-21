@@ -1,8 +1,6 @@
 package top.whf.coupon.template.controller;
 
 import com.alibaba.fastjson.JSON;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import top.whf.coupon.template.api.beans.CouponTemplateInfo;
@@ -10,6 +8,8 @@ import top.whf.coupon.template.api.beans.PagedCouponTemplateInfo;
 import top.whf.coupon.template.api.beans.TemplateSearchParams;
 import top.whf.coupon.template.service.CouponTemplateService;
 
+import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Map;
 /**
@@ -72,6 +72,7 @@ public class CouponTemplateController {
         log.info("getTemplateInBatch: {}", JSON.toJSONString(ids));
         return couponTemplateService.getTemplateInfoMap(ids);
     }
+
 
     /**
      * 搜索模板

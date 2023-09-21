@@ -2,7 +2,7 @@ package top.whf.coupon.calculation.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
-import jakarta.annotation.Resource;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +13,8 @@ import top.whf.coupon.calculation.service.CouponCalculationService;
 import top.whf.coupon.calculation.template.CouponTemplateFactory;
 import top.whf.coupon.calculation.template.RuleTemplate;
 import top.whf.coupon.template.api.beans.CouponInfo;
+
+import javax.annotation.Resource;
 
 /**
  * @ClassName CouponCalculationServiceImpl

@@ -1,6 +1,6 @@
 package top.whf.coupon.calculation.template;
 
-import jakarta.annotation.Resource;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
@@ -12,6 +12,8 @@ import top.whf.coupon.calculation.template.impl.RandomReductionTemplate;
 import top.whf.coupon.calculation.template.impl.NightTemplate;
 import top.whf.coupon.template.api.beans.CouponTemplateInfo;
 import top.whf.coupon.template.api.enums.CouponType;
+
+import javax.annotation.Resource;
 
 /**
  * @ClassName CouponTemplateFactory

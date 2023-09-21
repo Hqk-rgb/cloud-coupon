@@ -1,9 +1,11 @@
 package top.whf.coupon.template.dao.converter;
 
 import com.alibaba.fastjson.JSON;
-import jakarta.persistence.AttributeConverter;
-import jakarta.persistence.Converter;
+
 import top.whf.coupon.template.api.beans.rules.TemplateRule;
+
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 
 /**
  * @ClassName RuleConverter

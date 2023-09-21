@@ -1,7 +1,6 @@
 package top.whf.coupon.customer.controller;
 
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import top.whf.coupon.calculation.api.beans.ShoppingCart;
@@ -13,6 +12,8 @@ import top.whf.coupon.customer.dao.entity.Coupon;
 import top.whf.coupon.customer.service.CouponCustomerService;
 import top.whf.coupon.template.api.beans.CouponInfo;
 
+import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**

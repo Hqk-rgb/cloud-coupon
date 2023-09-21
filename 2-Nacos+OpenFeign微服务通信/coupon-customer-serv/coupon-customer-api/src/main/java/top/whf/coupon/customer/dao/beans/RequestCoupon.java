@@ -1,6 +1,6 @@
 package top.whf.coupon.customer.dao.beans;
 
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +27,6 @@ public class RequestCoupon {
      * 券模版 id
      */
     @NotNull
-    private Long couponTemplateId;
+    private Long couponTemplatedId;
 
 }

@@ -1,8 +1,10 @@
 package top.whf.coupon.template.dao.converter;
 
-import jakarta.persistence.AttributeConverter;
-import jakarta.persistence.Converter;
+
 import top.whf.coupon.template.api.enums.CouponType;
+
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 
 /**
  * @ClassName CouponTypeConverter

@@ -1,8 +1,5 @@
 package top.whf.coupon.customer.dao.entity;
 
-import jakarta.persistence.*;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +10,7 @@ import top.whf.coupon.customer.dao.converter.CouponStatusConverter;
 import top.whf.coupon.customer.dao.enums.CouponStatus;
 import top.whf.coupon.template.api.beans.CouponTemplateInfo;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**

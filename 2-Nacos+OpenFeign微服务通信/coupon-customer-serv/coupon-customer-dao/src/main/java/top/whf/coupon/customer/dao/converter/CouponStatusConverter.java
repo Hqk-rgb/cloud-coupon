@@ -1,8 +1,10 @@
 package top.whf.coupon.customer.dao.converter;
 
-import jakarta.persistence.AttributeConverter;
-import jakarta.persistence.Converter;
+
 import top.whf.coupon.customer.dao.enums.CouponStatus;
+
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 
 /**
  * @ClassName CouponStatusConverter
