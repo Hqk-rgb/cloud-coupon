@@ -7,7 +7,7 @@ spring:
     name: coupon-template-serv
   datasource:
     # mysql数据源
-    url: jdbc:mysql://47.113.151.205:3306/coupon_db?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/coupon_db?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
     # 指定数据源DataSource类型
@@ -36,7 +36,8 @@ spring:
     nacos:
       discovery:
         #Nacos服务地址，可以配置多个，用 ,分隔
-        server-addr: http://47.113.151.205:8848
+        server-addr: localhost:8848
+        # server-addr: http://47.113.151.205:8848
         #注册到Nacos上的服务名称
         service: coupon-template-serv
         #客户端（各个微服务）向Nacos发送心跳的时间，单位是毫秒

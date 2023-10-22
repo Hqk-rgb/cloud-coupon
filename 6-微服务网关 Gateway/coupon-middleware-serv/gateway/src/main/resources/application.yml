@@ -1,0 +1,54 @@
+server:
+  port: 30000
+
+spring:
+  application:
+    name: coupon-gateway-serv
+  cloud:
+    nacos:
+      discovery:
+        serv-addr: localhost:8848
+        #service: coupon-gateway-serv
+        heart-beat-interval: 5000
+        heart-beat-timeout: 15000
+        namespace: dev
+        group: myGroup
+    gateway:
+      discovery:
+        locator:
+          # 允许网关通过服务发现组件，找到其他微服务
+          enabled: true
+#      routes:
+#        - id: route-01
+#          uri: lb://coupon-calculation-serv
+#          predicates:
+#            - Path=/gateway/calculator/**
+#          filters:
+#            - StripPrefix=1
+#        - id: route-02
+#          uri: lb://coupon-template-serv
+#          predicates:
+#            - Path=/gateway/template/**
+#          filters:
+#            - StripPrefix=1
+#        - id: route-03
+#          uri: lb://coupon-customer-serv
+#          predicates:
+#            - Path=/gateway/coupon-customer/**
+#            - JDK=17
+##            - After=2022-12-25T14:33:47.789+08:00
+##            - Between=2018-12-25T14:33:47.789+08:00, 2018-12-26T14:33:47.789+08:00
+#            # https://zhuanlan.zhihu.com/p/354236947
+#          filters:
+#            - StripPrefix=1
+#    sentinel:
+#      transport:
+#        port: 8719
+#        dashboard: localhost:8080
+#      filter:
+#        enabled: true
+#      scg:
+#        fallback:
+#          mode: response
+#          response-status: 500
+#          response-body: '{"code":500,"message":"服务不可用","data":null}'

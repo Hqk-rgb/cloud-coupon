@@ -11,7 +11,8 @@ spring:
     nacos:
       discovery:
         #Nacos服务地址，可以配置多个，用 ,分隔
-        server-addr: http://47.113.151.205:8848
+        server-addr: localhost:8848
+        # server-addr: http://47.113.151.205:8848
         #注册到Nacos上的服务名称
         service: coupon-calculation-serv
         #客户端（各个微服务）向Nacos发送心跳的时间，单位是毫秒
@@ -33,9 +34,9 @@ spring:
         password: nacos
     sentinel:
       transport:
-          # sentinel API端口
+        # sentinel API端口
         port: 8719
-          # dashboard地址
+        # dashboard地址
         dashboard: localhost:8080
 logging:
   level:

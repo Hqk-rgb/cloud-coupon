@@ -38,7 +38,7 @@ spring:
     nacos:
       discovery:
         #Nacos服务地址，可以配置多个，用 ,分隔
-        server-addr: http://47.113.151.205:8848
+        server-addr: http://localhost:8848
         #注册到Nacos上的服务名称
         service: coupon-customer-serv
         #客户端（各个微服务）向Nacos发送心跳的时间，单位是毫秒
@@ -59,6 +59,19 @@ spring:
         username: nacos
         password: nacos
     sentinel:
+      datasource:
+        # 数据源的 key，可以自由命名
+        whf-flow:
+          # 指定当前数据源是 Nacos
+          nacos:
+            # 设置 Nacos 的连接地址、命名空间和 Group ID
+            server-addr: localhost:8848
+            namespace: dev
+            groupId: SENTINEL_GROUP
+            # 设置 Nacos 中配置文件的命名规则
+            dataId: ${spring.application.name}-flow-rules
+            # 必填的重要字段，指定当前规则类型是"限流"
+            rule-type: flow
       transport:
         # sentinel API端口
         port: 8719
